@@ -64,6 +64,8 @@ const opcionTwo = (commits) => {
     
 }
 
+opcionTwo()
+
 
 export const getCommits = async() => {
     try {
