@@ -1,71 +1,35 @@
+import { useEffect, useState } from "react";
 import SquaredComponent from "./SquaredCompoent"
+import PropTypes from 'prop-types' 
 
-
-const style = {
-    display: 'flex',
-    flexDirection: 'row',
-}
 
 
 const ZillowChart = ({ commits }) => {
 
-    const pad = (n) => {
-        n = n + '';
-        return n.lenght >= 2 ? n : `0${n}`
-    }
+    //const [dates, setDates] = useState([])
+    const [counts, setCounts] = useState([])
 
-
-    const getDays = () => {
-        const numDays = 31;
-
-        return Array.from(Array(numDays)).map((o,i) => {
-            return `2019-01-${pad(i + 1)}`
-        })
-    }
-
-
-
-    const groupDates = (commits) => {
-
-        const commitsPorFecha = {};
-
-        commits.forEach(commit => {
-            //const fechaCommit = new Date(commit.date).toDateString();
-            
-            if (!commitsPorFecha[commit.date]) {
-              commitsPorFecha[commit.date] = [];
-            }
-            
-            commitsPorFecha[commit.date].push(commit);
-          });
-      
-          // Devolver el objeto con los commits agrupados por fecha
-          return commitsPorFecha;
-
-    }
-
-
-    const aux = () => {
-        const d = getDays()
+    useEffect(() => {
+        setCounts(Object.entries(commits))
+    }, [])
     
-    }
-        
 
 
+    //console.log(counts.filter(i => console.log(i[0] ,  'counts')));
+
+    
     return (
-        <div style={style}>
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gridGap: '5px', width: '550px'}}>
             {
-                //groupDates(commits).map((i, index) => <SquaredComponent key={index}/>)
-                
+                counts.map((commit) => ( <SquaredComponent key={commit[0]} name={commit[0]} count={commit[1].length} />))
             }
-
-            <ul>
-                {
-                    getDays().map(date => <li key={date}>{date}</li>)
-                }
-            </ul>
         </div>
     )
+}
+
+
+ZillowChart.propTypes = {
+    commits: PropTypes.object
 }
 
 

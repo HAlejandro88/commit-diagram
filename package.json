@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "hls.js": "^1.4.12",
+    "plyr": "3.5.6",
+    "plyr-react": "next",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
